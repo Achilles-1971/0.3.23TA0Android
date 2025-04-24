@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/enterprisesFragment">
+
+    <fragment
+        android:id="@+id/enterprisesFragment"
+        android:name="com.example.proect23.ui.fragments.EnterprisesFragment"
+        android:label="Предприятия" />
+
+    <fragment
+        android:id="@+id/indicatorsFragment"
+        android:name="com.example.proect23.ui.fragments.IndicatorsFragment"
+        android:label="Показатели" >
+        <action
+            android:id="@+id/action_indicatorsFragment_to_indicatorValuesFragment"
+            app:destination="@id/indicatorValuesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/indicatorValuesFragment"
+        android:name="com.example.proect23.ui.fragments.IndicatorValuesFragment"
+        android:label="Значения показателя">
+        <argument
+            android:name="indicatorId"
+            app:argType="integer" />
+        <argument
+            android:name="indicatorName"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/currenciesFragment"
+        android:name="com.example.proect23.ui.fragments.CurrenciesFragment"
+        android:label="Валюты" />
+</navigation>

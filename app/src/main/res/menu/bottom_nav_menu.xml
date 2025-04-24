@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_enterprises"
+        android:icon="@drawable/ic_business"
+        android:title="Предприятия" />
+    <item
+        android:id="@+id/nav_indicators"
+        android:icon="@drawable/ic_bar_chart"
+        android:title="Показатели" />
+    <item
+        android:id="@+id/nav_currencies"
+        android:icon="@drawable/ic_currency"
+        android:title="Валюты" />
+
+
+</menu>
