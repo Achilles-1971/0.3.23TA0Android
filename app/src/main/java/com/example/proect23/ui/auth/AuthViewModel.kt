@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-// Состояния экрана аутентификации
 sealed class AuthState {
     object Idle : AuthState()
     object Loading : AuthState()
@@ -23,12 +22,20 @@ class AuthViewModel : ViewModel() {
     private val _state = MutableStateFlow<AuthState>(AuthState.Idle)
     val state: StateFlow<AuthState> get() = _state
 
-    fun register(username: String, password: String) = performAuth {
-        repo.register(username, password)
+    fun register(username: String, password: String) {
+        if (password.length < 8) {
+            _state.value = AuthState.Error("Пароль должен содержать минимум 8 символов")
+            return
+        }
+        performAuth { repo.register(username, password) }
     }
 
-    fun login(username: String, password: String) = performAuth {
-        repo.login(username, password)
+    fun login(username: String, password: String) {
+        if (password.length < 8) {
+            _state.value = AuthState.Error("Пароль должен содержать минимум 8 символов")
+            return
+        }
+        performAuth { repo.login(username, password) }
     }
 
     private fun performAuth(block: suspend () -> Result<TokenResponse>) {
@@ -37,11 +44,12 @@ class AuthViewModel : ViewModel() {
             val result = block()
             result
                 .onSuccess { token ->
-                    PrefsManager.token = token.access_token
+                    PrefsManager.token = token.accessToken
+                    PrefsManager.refreshToken = token.refreshToken
                     _state.value = AuthState.Success(token)
                 }
                 .onFailure { error ->
-                    _state.value = AuthState.Error(error.localizedMessage ?: "Unknown error")
+                    _state.value = AuthState.Error(error.message ?: "Неизвестная ошибка")
                 }
         }
     }

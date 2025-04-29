@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">proect23</string>
+
+    <!-- Добавляем недостающую строку -->
+    <string name="choose_currency">Выберите валюту</string>
 </resources>

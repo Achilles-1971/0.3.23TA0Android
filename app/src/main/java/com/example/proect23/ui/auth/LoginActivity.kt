@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.proect23.R
 import com.example.proect23.databinding.ActivityLoginBinding
 import com.example.proect23.ui.main.MainActivity
+import com.example.proect23.util.PrefsManager
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -20,6 +21,15 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Проверяем наличие токена
+        if (!PrefsManager.token.isNullOrBlank()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
+        // Инициализация UI
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,23 +40,29 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.startAnimation(fadeIn)
         binding.tvRegisterLink.startAnimation(fadeIn)
 
-        // Подписываемся на стейт
+        // Подписываемся на состояние
         lifecycleScope.launch {
             vm.state.collect { state ->
                 when (state) {
                     is AuthState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
+                        binding.btnLogin.isEnabled = false
                     }
                     is AuthState.Success -> {
                         binding.progressBar.visibility = View.GONE
+                        binding.btnLogin.isEnabled = true
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }
                     is AuthState.Error -> {
                         binding.progressBar.visibility = View.GONE
+                        binding.btnLogin.isEnabled = true
                         Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_LONG).show()
                     }
-                    else -> Unit
+                    else -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.btnLogin.isEnabled = true
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ cardview = "1.0.0"
 
 # Kotlin
 kotlinStdlib = "2.0.20"
-
+glide = "4.16.0"
 # Coroutines
 kotlinxCoroutines = "1.8.1"
 
@@ -76,6 +76,9 @@ netty-transport-native-unix-common = { group = "io.netty", name = "netty-transpo
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glideCompiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+ucrop = { group = "com.github.yalantis", name = "ucrop", version = "2.2.8" }
 
 [plugins]
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

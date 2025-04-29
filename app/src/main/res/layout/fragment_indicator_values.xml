@@ -7,21 +7,128 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- Заголовок показателя -->
     <TextView
         android:id="@+id/tvIndicatorValues"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Значения показателей"
+        android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Диапазон фильтра (с…/по…) -->
+    <TextView
+        android:id="@+id/tvFilterRange"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/tvIndicatorValues"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Кнопка сворачивания фильтров -->
+    <ImageButton
+        android:id="@+id/btnToggleFilters"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/arrow_down_float"
+        android:contentDescription="Скрыть/показать фильтры"
+        app:layout_constraintTop_toTopOf="@id/tvIndicatorValues"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Панель фильтров -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFilters"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvFilterRange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Валюта -->
+            <Spinner
+                android:id="@+id/spinnerCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Даты -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/editFromDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Дата с"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
+
+                <EditText
+                    android:id="@+id/editToDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:hint="Дата по"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none" />
+            </LinearLayout>
+
+            <!-- Кнопка сброса -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResetFilters"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сбросить фильтры"
+                android:icon="@drawable/ic_baseline_restart_alt_24"
+                app:iconPadding="12dp"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Текст, если нет результатов -->
+    <TextView
+        android:id="@+id/tvNoResults"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="⚠ По выбранным фильтрам ничего не найдено"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cardFilters"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Список значений -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshValues"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvIndicatorValues"
+        app:layout_constraintTop_toBottomOf="@id/tvNoResults"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -32,7 +139,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

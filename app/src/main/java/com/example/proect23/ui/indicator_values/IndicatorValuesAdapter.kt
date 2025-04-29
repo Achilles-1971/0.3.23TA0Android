@@ -2,9 +2,13 @@ package com.example.proect23.ui.indicator_values
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proect23.data.model.IndicatorValue
 import com.example.proect23.databinding.ItemIndicatorValueBinding
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class IndicatorValuesAdapter(
     private var list: List<IndicatorValue> = emptyList()
@@ -12,13 +16,33 @@ class IndicatorValuesAdapter(
 
     inner class VH(private val b: ItemIndicatorValueBinding) : RecyclerView.ViewHolder(b.root) {
         fun bind(item: IndicatorValue) {
-            b.tvValueInfo.text =
-                "Ent#${item.enterpriseId}  Ind#${item.indicatorId}  Date:${item.valueDate}  Val:${item.value} ${item.currencyCode}"
-            b.tvConverted.text =
-                if (item.convertedValue != null)
-                    "→ ${item.convertedValue}"
-                else
-                    "→ —"
+            // формат даты
+            val dateFormatted = try {
+                val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val formatter = SimpleDateFormat("d MMMM yyyy", Locale.getDefault())
+                formatter.format(parser.parse(item.valueDate) ?: item.valueDate)
+            } catch (e: Exception) {
+                item.valueDate
+            }
+
+            // формат числа
+            val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
+                maximumFractionDigits = 2
+            }
+
+            val originalText = "Дата: $dateFormatted\n" +
+                    "Значение: ${numberFormat.format(item.value)} ${item.currencyCode}"
+            b.tvValueInfo.text = originalText
+
+            val converted = item.convertedValue
+            b.tvConverted.text = if (converted != null) {
+                "→ ${numberFormat.format(converted)}"
+            } else {
+                "→ —"
+            }
+
+            // Предупреждение
+            b.tvWarning.isVisible = item.warning != null
             b.tvWarning.text = item.warning ?: ""
         }
     }

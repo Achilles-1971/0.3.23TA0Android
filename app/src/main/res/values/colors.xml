@@ -7,4 +7,6 @@
     <color name="primary_text">#2D3748</color>
     <color name="hint_text">#A0AEC0</color>
     <color name="white">#FFFFFF</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="purple_500">#6200EE</color>
 </resources>

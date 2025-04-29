@@ -34,6 +34,7 @@ class IndicatorsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* --- список показателей --- */
         val adapter = IndicatorsAdapter { indicator ->
             val action = IndicatorsFragmentDirections
                 .actionIndicatorsFragmentToIndicatorValuesFragment(
@@ -42,15 +43,20 @@ class IndicatorsFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-
         binding.rvIndicators.adapter = adapter
 
-        // Pull-to-refresh
-        binding.swipeRefreshIndicators.setOnRefreshListener {
-            vm.fetchAll()
+        /* --- FAB «Анализ» --- */
+        binding.fabAnalysis.setOnClickListener {
+            // пока жёстко передаём enterpriseId = 1  (можно заменять при необходимости)
+            val action = IndicatorsFragmentDirections
+                .actionIndicatorsFragmentToWeightedIndicatorsFragment(enterpriseId = 1)
+            findNavController().navigate(action)
         }
 
-        // Наблюдаем за состоянием
+        /* --- pull-to-refresh --- */
+        binding.swipeRefreshIndicators.setOnRefreshListener { vm.fetchAll() }
+
+        /* --- наблюдаем состояние --- */
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { state ->
                 binding.swipeRefreshIndicators.isRefreshing = state is IndicatorState.Loading
