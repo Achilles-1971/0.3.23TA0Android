@@ -10,8 +10,7 @@ import java.io.IOException
 class EnterpriseRepository {
     private val api = App.enterpriseApi
 
-    /** Получить список всех предприятий */
-    suspend fun getAll(): Result<List<Enterprise>> {          // ← блок
+    suspend fun getAll(): Result<List<Enterprise>> {
         return try {
             val resp = api.getAll()
             if (resp.isSuccessful) Result.success(resp.body()!!)
@@ -21,14 +20,12 @@ class EnterpriseRepository {
         }
     }
 
-    // ─── НОВАЯ функция — можно оставить expression-body ───
     suspend fun getAllSortedSafe(): List<Enterprise> =
         getAll()
             .getOrDefault(emptyList())
             .sortedBy { it.name.lowercase() }
 
-    /** Получить конкретное предприятие по ID */
-    suspend fun getById(id: Int): Result<Enterprise> {        // ← блок
+    suspend fun getById(id: Int): Result<Enterprise> {
         return try {
             val resp = api.getAll()
             if (!resp.isSuccessful) return Result.failure(HttpException(resp))
@@ -40,8 +37,7 @@ class EnterpriseRepository {
         }
     }
 
-    /** Обновить предприятие */
-    suspend fun update(enterprise: Enterprise): Result<Enterprise> {   // ← блок
+    suspend fun update(enterprise: Enterprise): Result<Enterprise> {
         return try {
             val body = EnterpriseUpdateRequest(
                 name           = enterprise.name,
@@ -57,8 +53,7 @@ class EnterpriseRepository {
         }
     }
 
-    /** Удалить предприятие */
-    suspend fun delete(id: Int): Result<Unit> {               // ← блок
+    suspend fun delete(id: Int): Result<Unit> {
         return try {
             val resp = api.delete(id)
             if (resp.isSuccessful) Result.success(Unit)
@@ -68,8 +63,7 @@ class EnterpriseRepository {
         }
     }
 
-    /** Создать предприятие */
-    suspend fun create(enterprise: Enterprise): Result<Enterprise> {   // ← блок
+    suspend fun create(enterprise: Enterprise): Result<Enterprise> {
         return try {
             val body = EnterpriseCreateRequest(
                 name           = enterprise.name,

@@ -16,7 +16,6 @@ class IndicatorsAdapter(
             binding.tvIndicatorName.text = item.name
             binding.tvIndicatorImportance.text = "Важность: ${item.importance} (${item.unit})"
 
-            // Обработка клика
             binding.root.setOnClickListener {
                 onClick(item)
             }

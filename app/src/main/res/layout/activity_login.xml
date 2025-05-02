@@ -9,7 +9,6 @@
     android:padding="24dp"
     tools:context=".ui.auth.LoginActivity">
 
-    <!-- Поле для имени пользователя -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardUsername"
         android:layout_width="0dp"
@@ -36,7 +35,6 @@
             android:textSize="16sp"/>
     </androidx.cardview.widget.CardView>
 
-    <!-- Поле для пароля -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPassword"
         android:layout_width="0dp"
@@ -63,7 +61,6 @@
             android:textSize="16sp"/>
     </androidx.cardview.widget.CardView>
 
-    <!-- Кнопка логина -->
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
@@ -80,7 +77,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
 
-    <!-- Ссылка на регистрацию -->
     <TextView
         android:id="@+id/tvRegisterLink"
         android:layout_width="wrap_content"
@@ -94,7 +90,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <!-- Прогресс-бар -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

@@ -53,7 +53,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Проверка размеров и видимости ImageView
         binding.avatar.post {
             Log.d(
                 "ProfileFragment",
@@ -73,7 +72,7 @@ class ProfileFragment : Fragment() {
                         binding.userId.text = "ID: ${state.profile.id}"
 
                         state.profile.avatarUrl?.let { url ->
-                            val fullAvatarUrl = "http://10.0.2.2:8000${url}?t=${System.currentTimeMillis()}"
+                            val fullAvatarUrl = "${url}?t=${System.currentTimeMillis()}"
                             Log.d("ProfileFragment", "Loading avatar from: $fullAvatarUrl")
 
                             Glide.with(this@ProfileFragment)
@@ -122,7 +121,6 @@ class ProfileFragment : Fragment() {
                     }
 
                     is ProfileState.Unauthorized -> {
-                        // Если токен протух, переходим на регистрацию
                         PrefsManager.clearTokens()
                         val intent = Intent(requireContext(), RegisterActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

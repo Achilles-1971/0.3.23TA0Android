@@ -26,7 +26,7 @@ class AuthInterceptor(
         if (response.code == 401) {
             val refreshToken = prefsManager.refreshToken
             if (refreshToken.isNullOrBlank()) {
-                prefsManager.clearTokens() // ✅ очищаем токены
+                prefsManager.clearTokens()
                 throw UnauthorizedException("No refresh token available")
             }
 
@@ -39,7 +39,7 @@ class AuthInterceptor(
                     .build()
                 return chain.proceed(newRequest)
             } else {
-                prefsManager.clearTokens() // ✅ очищаем токены при неудаче
+                prefsManager.clearTokens()
                 throw UnauthorizedException("Failed to refresh token")
             }
         }

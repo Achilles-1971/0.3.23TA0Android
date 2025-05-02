@@ -8,7 +8,6 @@
     android:background="@color/background_color"
     android:padding="16dp">
 
-    <!-- Заголовок -->
     <TextView
         android:id="@+id/tvIndicators"
         android:layout_width="wrap_content"
@@ -19,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- Pull-to-refresh + список -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshIndicators"
         android:layout_width="0dp"
@@ -38,7 +36,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <!-- FAB «Анализ» -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAnalysis"
         android:layout_width="wrap_content"

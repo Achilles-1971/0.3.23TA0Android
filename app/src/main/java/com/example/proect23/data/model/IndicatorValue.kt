@@ -12,7 +12,7 @@ data class IndicatorValue(
     val indicatorId: Int,
 
     @SerializedName("value_date")
-    val valueDate: String,          // формат "yyyy-MM-dd"
+    val valueDate: String,
 
     val value: Double,
 
@@ -20,7 +20,7 @@ data class IndicatorValue(
     val currencyCode: String,
 
     @SerializedName("converted_value")
-    val convertedValue: Double?,    // может быть null, если нет курса
+    val convertedValue: Double?,
 
-    val warning: String?            // сообщение-предупреждение
+    val warning: String?
 )

@@ -22,25 +22,21 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Проверяем наличие токена
         if (!PrefsManager.token.isNullOrBlank()) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
             return
         }
 
-        // Инициализация UI
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Анимация появления элементов
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         binding.cardUsername.startAnimation(fadeIn)
         binding.cardPassword.startAnimation(fadeIn)
         binding.btnLogin.startAnimation(fadeIn)
         binding.tvRegisterLink.startAnimation(fadeIn)
 
-        // Подписываемся на состояние
         lifecycleScope.launch {
             vm.state.collect { state ->
                 when (state) {
@@ -67,12 +63,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Обработка клика на кнопку логина
         binding.btnLogin.setOnClickListener {
             val user = binding.etUsername.text.toString().trim()
             val pass = binding.etPassword.text.toString()
 
-            // Валидация ввода
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -81,7 +75,6 @@ class LoginActivity : AppCompatActivity() {
             vm.login(user, pass)
         }
 
-        // Переход на экран регистрации
         binding.tvRegisterLink.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }

@@ -15,7 +15,6 @@ class EnterpriseDetailViewModel : ViewModel() {
     private val _state = MutableStateFlow<EnterpriseDetailState>(EnterpriseDetailState.Loading)
     val state: StateFlow<EnterpriseDetailState> = _state
 
-    /** Загружает данные одного предприятия */
     fun fetchById(id: Int) {
         viewModelScope.launch {
             _state.value = EnterpriseDetailState.Loading
@@ -31,7 +30,6 @@ class EnterpriseDetailViewModel : ViewModel() {
         }
     }
 
-    /** Обновляет предприятие на сервере */
     fun update(enterprise: Enterprise) {
         viewModelScope.launch {
             _state.value = EnterpriseDetailState.Loading
@@ -51,7 +49,6 @@ class EnterpriseDetailViewModel : ViewModel() {
         }
     }
 
-    /** Удаляет предприятие на сервере */
     fun delete(id: Int) {
         viewModelScope.launch {
             repo.delete(id)

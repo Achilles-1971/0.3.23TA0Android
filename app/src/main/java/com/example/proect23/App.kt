@@ -26,15 +26,12 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Инициализация SharedPreferences
         PrefsManager.init(this)
 
-        // Логирование HTTP-запросов
         val logging = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-        // OkHttpClient с AuthInterceptor
         val client = OkHttpClient.Builder()
             
             .addInterceptor(AuthInterceptor(PrefsManager))
@@ -42,9 +39,8 @@ class App : Application() {
             .build()
 
 
-        // Инициализация Retrofit
         retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/") // адрес твоего локального Django-сервера для эмулятора
+            .baseUrl("http://10.0.2.2:8000/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

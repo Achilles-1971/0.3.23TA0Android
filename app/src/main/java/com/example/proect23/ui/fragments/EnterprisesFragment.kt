@@ -48,20 +48,16 @@ class EnterprisesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rvEnterprises.adapter = adapter
 
-        // Кнопка добавления предприятия
         binding.fabAddEnterprise.setOnClickListener {
             findNavController().navigate(R.id.action_enterprisesFragment_to_createEnterpriseFragment)
         }
 
-        // Поиск
         initSearchView()
 
-        // Обновление при свайпе
         binding.swipeRefresh.setOnRefreshListener {
             vm.fetchAll()
         }
 
-        // Подписка на состояние
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collectLatest { state ->
                 binding.swipeRefresh.isRefreshing = state is EnterpriseState.Loading

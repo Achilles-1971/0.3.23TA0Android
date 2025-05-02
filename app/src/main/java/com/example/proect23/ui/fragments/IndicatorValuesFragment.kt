@@ -39,12 +39,10 @@ class IndicatorValuesFragment : Fragment(R.layout.fragment_indicator_values) {
         val indicatorId   = args.indicatorId
         val indicatorName = args.indicatorName
 
-        // заголовок и адаптер
         binding.tvIndicatorValues.text = indicatorName
         requireActivity().title        = indicatorName
         binding.rvValues.adapter        = adapter
 
-        // список валют
         val currencies = listOf("— оригинальная валюта —", "RUB", "USD", "EUR")
         binding.spinnerCurrency.adapter = ArrayAdapter(
             requireContext(),
@@ -53,14 +51,12 @@ class IndicatorValuesFragment : Fragment(R.layout.fragment_indicator_values) {
         ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
         binding.spinnerCurrency.setSelection(0)
 
-        // превратить отображаемую дату в ISO для API
         fun toIso(dateStr: String): String? =
             if (dateStr.length == 10) runCatching {
                 sdfApi.format(sdfDisplay.parse(dateStr)!!)
             }.getOrNull()
             else null
 
-        // пересоздать текущий текст фильтра
         fun updateFilterRange() {
             val from = binding.editFromDate.text.toString()
             val to   = binding.editToDate.text.toString()
@@ -78,7 +74,6 @@ class IndicatorValuesFragment : Fragment(R.layout.fragment_indicator_values) {
             }
         }
 
-        // основной reload()
         fun reload() {
             updateFilterRange()
             binding.tvNoResults.visibility = View.GONE
@@ -91,13 +86,11 @@ class IndicatorValuesFragment : Fragment(R.layout.fragment_indicator_values) {
             )
         }
 
-        // слушатели
         binding.spinnerCurrency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p: AdapterView<*>, v: View?, pos: Int, id: Long) = reload()
             override fun onNothingSelected(p: AdapterView<*>) {}
         }
 
-        // DatePickerDialog
         fun pickDate(target: View) {
             val edit = target as? android.widget.EditText ?: return
             val cal  = Calendar.getInstance()
@@ -134,10 +127,8 @@ class IndicatorValuesFragment : Fragment(R.layout.fragment_indicator_values) {
 
         binding.swipeRefreshValues.setOnRefreshListener { reload() }
 
-        // первая загрузка
         reload()
 
-        // наблюдаем за результатами
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { state ->
                 binding.swipeRefreshValues.isRefreshing = state is IndicatorValueState.Loading

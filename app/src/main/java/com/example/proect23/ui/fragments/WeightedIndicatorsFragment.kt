@@ -26,7 +26,6 @@ class WeightedIndicatorsFragment : Fragment(R.layout.fragment_weighted_indicator
     private var enterprises: List<Enterprise> = emptyList()
     private val currencies = listOf("— оригинальная валюта —", "RUB", "USD", "EUR")
 
-    // ──────── ► теперь на уровне класса ◄ ─────────
     private fun updateFilterText() {
         val ent = enterprises.getOrNull(binding.spinnerEnterprise.selectedItemPosition)?.name
         val cur = currencies[binding.spinnerCurrencyWeighted.selectedItemPosition]
@@ -38,7 +37,7 @@ class WeightedIndicatorsFragment : Fragment(R.layout.fragment_weighted_indicator
     }
 
     private fun reload() {
-        if (enterprises.isEmpty()) return         // ещё не подгрузили список
+        if (enterprises.isEmpty()) return
         updateFilterText()
         binding.tvNoWeighted.visibility = View.GONE
         val selectedEnt = enterprises[binding.spinnerEnterprise.selectedItemPosition]
@@ -48,7 +47,6 @@ class WeightedIndicatorsFragment : Fragment(R.layout.fragment_weighted_indicator
                 .takeIf { it != currencies[0] }
         )
     }
-    // ──────────────────────────────────────────────
 
     override fun onCreateView(inflater: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _binding = FragmentWeightedIndicatorsBinding.inflate(inflater, c, false)
@@ -58,27 +56,24 @@ class WeightedIndicatorsFragment : Fragment(R.layout.fragment_weighted_indicator
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rvWeighted.adapter = adapter
 
-        // статический адаптер валют
         binding.spinnerCurrencyWeighted.adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             currencies
         ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
-        // загружаем предприятия
         viewLifecycleOwner.lifecycleScope.launch {
             enterprises = repo.getAllSortedSafe()
             binding.spinnerEnterprise.adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                enterprises            // Enterprise.toString() = name
+                enterprises
             ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
             initListeners()
-            reload()                 // ← теперь видит функцию
+            reload()
         }
 
-        // наблюдаем за состоянием ViewModel
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { state ->
                 binding.swipeRefreshWeighted.isRefreshing = state is WeightedIndicatorState.Loading

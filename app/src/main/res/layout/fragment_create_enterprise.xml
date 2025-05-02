@@ -7,7 +7,6 @@
     android:padding="24dp"
     android:background="?android:attr/windowBackground">
 
-    <!-- ───────────── Заголовок ───────────── -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
@@ -19,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Название -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -38,7 +36,6 @@
             android:paddingVertical="14dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Реквизиты -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilRequisites"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -57,7 +54,6 @@
             android:paddingVertical="14dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Телефон -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPhone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,7 +75,6 @@
             android:paddingVertical="14dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Контактное лицо -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilContactPerson"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -98,7 +93,6 @@
             android:paddingVertical="14dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- ───────────── Прогресс заполнения ───────────── -->
     <ProgressBar
         android:id="@+id/progressFields"
         style="?android:attr/progressBarStyleHorizontal"
@@ -113,7 +107,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Кнопка «Сохранить» -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSave"
         android:layout_width="0dp"

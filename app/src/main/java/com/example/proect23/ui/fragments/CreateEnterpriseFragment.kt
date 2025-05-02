@@ -42,7 +42,6 @@ class CreateEnterpriseFragment : Fragment() {
         binding.btnSave.setOnClickListener { saveEnterprise() }
     }
 
-    /** ───────── Валидация и прогресс ───────── */
     private fun configureValidation() {
         val edits = listOf(
             binding.etName,
@@ -51,7 +50,7 @@ class CreateEnterpriseFragment : Fragment() {
             binding.etContactPerson
         )
         edits.forEach { it.addTextChangedListener { updateUiByFilledFields() } }
-        updateUiByFilledFields() // первичная инициализация
+        updateUiByFilledFields()
     }
 
     private fun updateUiByFilledFields() {
@@ -66,7 +65,6 @@ class CreateEnterpriseFragment : Fragment() {
         binding.btnSave.isEnabled = filled == TOTAL_FIELDS
     }
 
-    /** ───────── Маска телефона +7 999 999 99 99 ───────── */
     private fun configurePhoneMask() {
         binding.etPhone.addTextChangedListener(object : TextWatcher {
             private var editing = false
@@ -102,7 +100,6 @@ class CreateEnterpriseFragment : Fragment() {
         })
     }
 
-    /** ───────── Сохранение ───────── */
     private fun saveEnterprise() {
         val phoneDigits = binding.etPhone.text!!.filter { it.isDigit() }
         if (phoneDigits.isNotEmpty() && phoneDigits.length != 11) {

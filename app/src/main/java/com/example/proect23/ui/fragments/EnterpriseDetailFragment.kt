@@ -27,7 +27,6 @@ class EnterpriseDetailFragment : Fragment() {
     private val args: EnterpriseDetailFragmentArgs by navArgs()
     private val vm: EnterpriseDetailViewModel by viewModels()
 
-    /** true — режим редактирования */
     private var editable = false
 
     override fun onCreateView(
@@ -36,7 +35,6 @@ class EnterpriseDetailFragment : Fragment() {
         .also { _binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Подписка на состояние
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collectLatest { state ->
                 val loading = state is EnterpriseDetailState.Loading
@@ -61,7 +59,6 @@ class EnterpriseDetailFragment : Fragment() {
             }
         }
 
-        // Маска для телефона
         binding.etPhone.addTextChangedListener(object : TextWatcher {
             private var editing = false
 
@@ -104,15 +101,12 @@ class EnterpriseDetailFragment : Fragment() {
             }
         })
 
-        // Загрузка данных
         vm.fetchById(args.enterpriseId)
 
-        // Кнопка Изменить
         binding.btnEdit.setOnClickListener {
             switchToEdit(true)
         }
 
-        // Кнопка Сохранить
         binding.btnSave.setOnClickListener {
             binding.tilName.error = null
             binding.tilPhone.error = null
@@ -122,7 +116,6 @@ class EnterpriseDetailFragment : Fragment() {
             val phone = binding.etPhone.text.toString().trim()
             val contactPerson = binding.etContactPerson.text.toString().trim()
 
-            // Проверка номера
             val phoneDigits = phone.filter { it.isDigit() }
 
             if (name.isEmpty()) {
@@ -144,7 +137,6 @@ class EnterpriseDetailFragment : Fragment() {
             vm.update(updated)
         }
 
-        // Кнопка Удалить
         binding.btnDelete.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setTitle("Удалить предприятие?")

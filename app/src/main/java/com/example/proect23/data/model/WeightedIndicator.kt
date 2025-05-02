@@ -10,7 +10,7 @@ data class WeightedIndicator(
     val indicatorName: String,
 
     @SerializedName("value_date")
-    val valueDate: String,             // "yyyy-MM-dd"
+    val valueDate: String,
 
     @SerializedName("original_value")
     val originalValue: Double,

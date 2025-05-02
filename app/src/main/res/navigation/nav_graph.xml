@@ -4,24 +4,20 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/enterprisesFragment">
 
-    <!-- Экран: предприятия -->
     <fragment
         android:id="@+id/enterprisesFragment"
         android:name="com.example.proect23.ui.fragments.EnterprisesFragment"
         android:label="Предприятия">
 
-        <!-- Переход к деталям предприятия -->
         <action
             android:id="@+id/action_enterprises_to_detail"
             app:destination="@id/enterpriseDetailFragment" />
 
-        <!-- Переход к созданию предприятия -->
         <action
             android:id="@+id/action_enterprisesFragment_to_createEnterpriseFragment"
             app:destination="@id/createEnterpriseFragment" />
     </fragment>
 
-    <!-- Экран: детали одного предприятия -->
     <fragment
         android:id="@+id/enterpriseDetailFragment"
         android:name="com.example.proect23.ui.fragments.EnterpriseDetailFragment"
@@ -31,13 +27,11 @@
             app:argType="integer" />
     </fragment>
 
-    <!-- Экран: создание нового предприятия -->
     <fragment
         android:id="@+id/createEnterpriseFragment"
         android:name="com.example.proect23.ui.fragments.CreateEnterpriseFragment"
         android:label="Создать предприятие" />
 
-    <!-- Экран: показатели -->
     <fragment
         android:id="@+id/indicatorsFragment"
         android:name="com.example.proect23.ui.fragments.IndicatorsFragment"
@@ -50,7 +44,6 @@
             app:destination="@id/weightedIndicatorsFragment" />
     </fragment>
 
-    <!-- Экран: значения конкретного показателя -->
     <fragment
         android:id="@+id/indicatorValuesFragment"
         android:name="com.example.proect23.ui.fragments.IndicatorValuesFragment"
@@ -63,7 +56,6 @@
             app:argType="string" />
     </fragment>
 
-    <!-- Экран: валюты -->
     <fragment
         android:id="@+id/currenciesFragment"
         android:name="com.example.proect23.ui.fragments.CurrenciesFragment"
@@ -73,13 +65,11 @@
             app:destination="@id/exchangeRatesFragment" />
     </fragment>
 
-    <!-- Экран: курсы валют -->
     <fragment
         android:id="@+id/exchangeRatesFragment"
         android:name="com.example.proect23.ui.fragments.ExchangeRatesFragment"
         android:label="Курсы валют" />
 
-    <!-- Экран: взвешенные показатели -->
     <fragment
         android:id="@+id/weightedIndicatorsFragment"
         android:name="com.example.proect23.ui.fragments.WeightedIndicatorsFragment"
@@ -89,13 +79,11 @@
             app:argType="integer" />
     </fragment>
 
-    <!-- Экран: профиль пользователя -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.proect23.ui.profile.ProfileFragment"
         android:label="Профиль" />
 
-    <!-- Глобальные переходы для BottomNavigationView -->
     <action
         android:id="@+id/action_to_enterprises"
         app:destination="@id/enterprisesFragment"

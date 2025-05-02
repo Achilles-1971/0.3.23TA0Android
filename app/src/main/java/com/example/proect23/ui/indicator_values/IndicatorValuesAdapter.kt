@@ -16,7 +16,6 @@ class IndicatorValuesAdapter(
 
     inner class VH(private val b: ItemIndicatorValueBinding) : RecyclerView.ViewHolder(b.root) {
         fun bind(item: IndicatorValue) {
-            // формат даты
             val dateFormatted = try {
                 val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val formatter = SimpleDateFormat("d MMMM yyyy", Locale.getDefault())
@@ -25,7 +24,6 @@ class IndicatorValuesAdapter(
                 item.valueDate
             }
 
-            // формат числа
             val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
                 maximumFractionDigits = 2
             }
@@ -41,7 +39,6 @@ class IndicatorValuesAdapter(
                 "→ —"
             }
 
-            // Предупреждение
             b.tvWarning.isVisible = item.warning != null
             b.tvWarning.text = item.warning ?: ""
         }

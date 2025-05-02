@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Интернет-доступ для работы с API -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Разрешение для доступа к изображениям (Android 13+) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
@@ -19,7 +17,6 @@
         android:theme="@style/Theme.Proect23"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <!-- Точка входа: LoginActivity -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="true">
@@ -29,17 +26,14 @@
             </intent-filter>
         </activity>
 
-        <!-- Главный экран -->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />
 
-        <!-- Экран регистрации -->
         <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
 
-        <!-- Активность UCrop для обрезки изображений -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"

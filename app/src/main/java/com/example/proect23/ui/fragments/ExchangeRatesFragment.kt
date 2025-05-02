@@ -34,23 +34,18 @@ class ExchangeRatesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Устанавливаем адаптер
         binding.rvExchangeRates.adapter = adapter
 
-        // Pull-to-refresh
         binding.swipeRefreshExchange.setOnRefreshListener {
             vm.fetchAll()
         }
 
-        // Наблюдаем за состоянием и обрабатываем все варианты
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { state ->
-                // Показать или скрыть индикатор загрузки
                 binding.swipeRefreshExchange.isRefreshing = state is ExchangeRateState.Loading
 
                 when (state) {
                     is ExchangeRateState.Loading -> {
-                        // здесь ничего не делаем — только крутилка
                     }
                     is ExchangeRateState.Success -> {
                         adapter.submit(state.list)

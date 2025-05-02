@@ -14,7 +14,6 @@ class EnterpriseViewModel : ViewModel() {
     private val _state = MutableStateFlow<EnterpriseState>(EnterpriseState.Loading)
     val state: StateFlow<EnterpriseState> get() = _state
 
-    // Новый флаг для автоматического обновления
     var shouldRefresh: Boolean = false
 
     init {

@@ -23,14 +23,12 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Анимация появления элементов
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         binding.cardUsername.startAnimation(fadeIn)
         binding.cardPassword.startAnimation(fadeIn)
         binding.btnRegister.startAnimation(fadeIn)
         binding.tvLoginLink.startAnimation(fadeIn)
 
-        // Подписываемся на стейт
         lifecycleScope.launch {
             vm.state.collect { state ->
                 when (state) {
@@ -51,12 +49,10 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        // Обработка клика на кнопку регистрации
         binding.btnRegister.setOnClickListener {
             val user = binding.etUsername.text.toString().trim()
             val pass = binding.etPassword.text.toString()
 
-            // Валидация ввода
             if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -69,7 +65,6 @@ class RegisterActivity : AppCompatActivity() {
             vm.register(user, pass)
         }
 
-        // Переход на экран логина
         binding.tvLoginLink.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

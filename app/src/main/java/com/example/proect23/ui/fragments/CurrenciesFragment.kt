@@ -34,13 +34,10 @@ class CurrenciesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Устанавливаем адаптер
         binding.rvCurrencies.adapter = adapter
 
-        // Pull-to-refresh
         binding.swipeRefreshCurrencies.setOnRefreshListener { vm.fetchAll() }
 
-        // Подписываемся на состояние
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { state ->
                 binding.swipeRefreshCurrencies.isRefreshing = state is CurrencyState.Loading

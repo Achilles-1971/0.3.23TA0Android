@@ -13,7 +13,6 @@ class WeightedIndicatorViewModel : ViewModel() {
     private val _state = MutableStateFlow<WeightedIndicatorState>(WeightedIndicatorState.Loading)
     val state: StateFlow<WeightedIndicatorState> = _state
 
-    /** По умолчанию возьмём enterpriseId = 1 (или передавайте из другого фрагмента) **/
     init { fetchAll(enterpriseId = 1) }
 
     fun fetchAll(

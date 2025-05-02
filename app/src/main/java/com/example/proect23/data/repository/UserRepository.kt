@@ -60,11 +60,9 @@ class UserRepository {
                 "jpg", "jpeg" -> "image/jpeg"
                 else -> throw IllegalArgumentException("Unsupported image type: ${file.extension}")
             }
-            // Создаём RequestBody с корректным MIME-типом
             val requestBody = file
                 .asRequestBody(mimeType.toMediaTypeOrNull())
 
-            // Формируем multipart-часть
             val part = MultipartBody.Part.createFormData(
                 name = "file",
                 filename = file.name,
@@ -88,7 +86,6 @@ class UserRepository {
         return when (code) {
             401 -> throw UnauthorizedException()
             400 -> {
-                // Сервер отвечает detail="Only JPEG or PNG images are allowed"
                 Result.failure(Exception("Only JPEG or PNG images are allowed"))
             }
             else -> Result.failure(HttpException(response))
